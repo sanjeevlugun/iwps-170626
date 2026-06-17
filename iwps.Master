@@ -1,0 +1,212 @@
+<%@ Master Language="C#" CodeBehind="iwps.Master.cs" Inherits="IWPS.iwps" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>IWPS - Integrated Works Procurement System</title>
+
+    <!-- Bootstrap 4.6 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.2/css/bootstrap.min.css" />
+    <!-- toastr 2.1.4 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" />
+
+    <style>
+        body { font-family: Cambria, serif; background: #f0f4f8; margin: 0; }
+        .iwps-header { position: fixed; top: 0; background: linear-gradient(135deg, #003366, #004d99); color: white; height: 70px; display: flex; align-items: center; padding: 0 20px; z-index: 1050; width: 100%; box-sizing: border-box; }
+        .iwps-logo { height: 50px; margin-right: 15px; }
+        .iwps-company-name { font-size: 12px; line-height: 1.4; color: #add8e6; }
+        .iwps-title { font-size: 18px; font-weight: bold; color: white; margin-left: auto; padding-left: 20px; }
+        .iwps-user-info { font-size: 12px; color: #add8e6; text-align: right; padding-left: 20px; }
+        .iwps-navbar { background: #002244; position: fixed; top: 70px; width: 100%; z-index: 1040; overflow-x: auto; }
+        .iwps-navbar ul.iwps-menu-static { list-style: none; margin: 0; padding: 0; display: flex; white-space: nowrap; }
+        .iwps-navbar a { color: #add8e6; text-decoration: none; padding: 12px 16px; display: block; font-size: 13px; }
+        .iwps-navbar a:hover { background: #004d99; color: white; }
+        .iwps-content { margin-top: 120px; padding: 20px; min-height: calc(100vh - 160px); }
+        .iwps-footer { background: #002244; color: #add8e6; text-align: center; padding: 10px; font-size: 12px; position: fixed; bottom: 0; width: 100%; }
+        .iwps-card { background: white; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .iwps-card-header { background: linear-gradient(135deg, #003366, #004d99); color: white; padding: 12px 20px; border-radius: 6px 6px 0 0; font-size: 15px; font-weight: bold; }
+        .section-title { background: #003366; color: white; padding: 8px 15px; margin: 15px 0 10px 0; border-radius: 4px; font-size: 14px; font-weight: bold; }
+        .iwps-input-edit { border: 1px solid #003366 !important; border-radius: 4px; padding: 6px 10px; width: 100%; background: white; }
+        .iwps-input-readonly { border: 1px solid #ccc !important; border-radius: 4px; padding: 6px 10px; width: 100%; background: #f5f5f5; color: #555; }
+        .form-label-custom { font-size: 13px; font-weight: 600; color: #003366; margin-bottom: 3px; display: block; }
+        .iwps-label-required::after { content: " *"; color: red; }
+        .iwps-label-required { font-size: 13px; font-weight: 600; color: #003366; margin-bottom: 3px; display: block; }
+        .iwps-custom-grid { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .iwps-custom-grid th { background: #003366; color: white; padding: 8px 12px; text-align: left; }
+        .iwps-custom-grid td { padding: 7px 12px; border-bottom: 1px solid #e0e0e0; }
+        .iwps-custom-grid tr:hover td { background: #f0f4f8; }
+        .btn-iwps-primary { background: #003366; color: white; border: none; border-radius: 4px; padding: 6px 16px; }
+        .btn-iwps-primary:hover { background: #004d99; color: white; }
+        .status-badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+        .status-draft { background: #6c757d; color: white; }
+        .status-initiated { background: #17a2b8; color: white; }
+        .status-forwarded { background: #fd7e14; color: white; }
+        .status-approved { background: #28a745; color: white; }
+        .status-active { background: #007bff; color: white; }
+        .status-rejected { background: #dc3545; color: white; }
+        .status-inactive { background: #343a40; color: white; }
+        .stat-card { background: white; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: center; padding: 20px; }
+        .stat-number { font-size: 36px; font-weight: bold; color: #003366; }
+        .stat-label { font-size: 13px; color: #666; }
+    </style>
+
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+
+    <div class="iwps-header">
+        <img src="content/bhel.png" class="iwps-logo" alt="BHEL" onerror="this.style.display='none'" />
+        <div class="iwps-company-name">
+            भारत हेवी इलेक्ट्रिकल्स लिमिटेड<br />
+            Bharat Heavy Electricals Limited
+        </div>
+        <div class="iwps-title">INTEGRATED WORKS PROCUREMENT SYSTEM (IWPS)</div>
+        <div class="iwps-user-info">
+            <asp:Label ID="mm_lblmsg" runat="server" Text=""></asp:Label>
+        </div>
+    </div>
+
+    <div class="iwps-navbar">
+        <asp:Menu ID="app_menu" runat="server" Orientation="Horizontal"
+            OnMenuItemClick="App_MenuItemClick"
+            StaticMenuStyle-CssClass="iwps-menu-static">
+            <Items>
+                <asp:MenuItem Text="HOME" NavigateUrl="~/app_home.aspx"></asp:MenuItem>
+                <asp:MenuItem Text="MASTER">
+                    <asp:MenuItem Text="Category Master" NavigateUrl="~/category_master.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Item Master" NavigateUrl="~/item_master.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="List of Items" NavigateUrl="~/list_item_master.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="List of Category" NavigateUrl="~/list_category_master.aspx"></asp:MenuItem>
+                </asp:MenuItem>
+                <asp:MenuItem Text="INDENT">
+                    <asp:MenuItem Text="Draft Indent List" NavigateUrl="~/draft_indent_list.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Initiate Indent" NavigateUrl="~/initiate_indent.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Indent Acceptance" NavigateUrl="~/Indent_list_enq_dept_approval.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Print Indent" NavigateUrl="~/list_indent_print.aspx"></asp:MenuItem>
+                </asp:MenuItem>
+                <asp:MenuItem Text="ENQUIRY">
+                    <asp:MenuItem Text="Category Wise" NavigateUrl="~/category_wise_initiate_enquiry.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Indent Wise" NavigateUrl="~/indent_wise_initiate_enquiry.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Enquiry Part-I Open" NavigateUrl="~/enquiry_tech_open.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Price/Part-II Open" NavigateUrl="~/enquiry_price_open.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Draft Enquiry List" NavigateUrl="~/draft_enquiry_list.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Print Enquiry" NavigateUrl="~/print_enquiry_list.aspx"></asp:MenuItem>
+                </asp:MenuItem>
+                <asp:MenuItem Text="LOI">
+                    <asp:MenuItem Text="Party CLC-ID Update" NavigateUrl="~/enquiry_party_clcid_update.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="LOI Message" NavigateUrl="~/loi_note_master.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="LOI Input" NavigateUrl="~/loi_input.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Print LOI" NavigateUrl="~/print_loi_list.aspx"></asp:MenuItem>
+                </asp:MenuItem>
+                <asp:MenuItem Text="WORK ORDER">
+                    <asp:MenuItem Text="Draft WO List" NavigateUrl="~/Draft_wo_list.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Initiate WO" NavigateUrl="~/create_wo.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Print WO" NavigateUrl="~/print_wo_list.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Print WO Items" NavigateUrl="~/print_wo_items.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Display WO" NavigateUrl="~/display_wo_details.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Amend WO" NavigateUrl="~/work_order_amend.aspx"></asp:MenuItem>
+                </asp:MenuItem>
+                <asp:MenuItem Text="APPROVAL">
+                    <asp:MenuItem Text="Category HOD" NavigateUrl="~/hod_category_master_approval.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Category WCD" NavigateUrl="~/wcd_category_master_approval.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Item HOD" NavigateUrl="~/hod_item_master_approval.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Indent Approver" NavigateUrl="~/indent_list_approver.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Enquiry Approver" NavigateUrl="~/enquiry_list_approver.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="LOI Approver" NavigateUrl="~/loi_list_approver.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="CAA WO Approval" NavigateUrl="~/caa_list_wo_approve.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Pending APP WO" NavigateUrl="~/pending_app_wo_list.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="App WO" NavigateUrl="~/App_wo.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="App WO Amendment" NavigateUrl="~/app_wo_amend_req.aspx"></asp:MenuItem>
+                </asp:MenuItem>
+                <asp:MenuItem Text="REQUEST UPDATE MASTER">
+                    <asp:MenuItem Text="Inactive Category" NavigateUrl="~/inactive_category_request.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Inactive Item" NavigateUrl="~/inactive_item_request.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Category Contractor Mapping" NavigateUrl="~/category_mapping_contractor.aspx"></asp:MenuItem>
+                </asp:MenuItem>
+                <asp:MenuItem Text="REPORTS">
+                    <asp:MenuItem Text="Search Item" NavigateUrl="~/search_item_master.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Search Category" NavigateUrl="~/search_category_master.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Dept-wise Category" NavigateUrl="~/deptwise_category_master.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Indent Items" NavigateUrl="~/indent_items_details.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Indent Docs" NavigateUrl="~/indent_uploaded_documents.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Enquiry Docs" NavigateUrl="~/enquiry_uploaded_documents.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Indent-Enquiry Items" NavigateUrl="~/indent_enquiry_items_allocated.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Enquiry Items" NavigateUrl="~/enquiry_item_details.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Enquiry Parties" NavigateUrl="~/enquiry_party_details.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Price Breakup" NavigateUrl="~/enquiry_party_price_breakup.aspx"></asp:MenuItem>
+                </asp:MenuItem>
+                <asp:MenuItem Text="LOGOUT"></asp:MenuItem>
+            </Items>
+        </asp:Menu>
+
+        <asp:Menu ID="nor_menu" runat="server" Orientation="Horizontal"
+            OnMenuItemClick="nor_menu_MenuItemClick"
+            StaticMenuStyle-CssClass="iwps-menu-static">
+            <Items>
+                <asp:MenuItem Text="HOME" NavigateUrl="~/Nor_home.aspx"></asp:MenuItem>
+                <asp:MenuItem Text="INDENT">
+                    <asp:MenuItem Text="Draft Indent List" NavigateUrl="~/draft_indent_list.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Initiate Indent" NavigateUrl="~/initiate_indent.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Print Indent" NavigateUrl="~/list_indent_print.aspx"></asp:MenuItem>
+                </asp:MenuItem>
+                <asp:MenuItem Text="ENQUIRY">
+                    <asp:MenuItem Text="Category Wise" NavigateUrl="~/category_wise_initiate_enquiry.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Indent Wise" NavigateUrl="~/indent_wise_initiate_enquiry.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Draft Enquiry List" NavigateUrl="~/draft_enquiry_list.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Print Enquiry" NavigateUrl="~/print_enquiry_list.aspx"></asp:MenuItem>
+                </asp:MenuItem>
+                <asp:MenuItem Text="LOI">
+                    <asp:MenuItem Text="LOI Message" NavigateUrl="~/loi_note_master.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="LOI Input" NavigateUrl="~/loi_input.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Print LOI" NavigateUrl="~/print_loi_list.aspx"></asp:MenuItem>
+                </asp:MenuItem>
+                <asp:MenuItem Text="WORK ORDER">
+                    <asp:MenuItem Text="Draft WO List" NavigateUrl="~/Draft_wo_list.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Initiate WO" NavigateUrl="~/create_wo.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Print WO" NavigateUrl="~/print_wo_list.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Print WO Items" NavigateUrl="~/print_wo_items.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Display WO" NavigateUrl="~/display_wo_details.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Amend WO" NavigateUrl="~/work_order_amend.aspx"></asp:MenuItem>
+                </asp:MenuItem>
+                <asp:MenuItem Text="APPROVAL">
+                    <asp:MenuItem Text="Indent" NavigateUrl="~/indent_list_approver.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Enquiry" NavigateUrl="~/enquiry_list_approver.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="LOI" NavigateUrl="~/loi_list_approver.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="CAA WO" NavigateUrl="~/caa_list_wo_approve.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Pending APP WO" NavigateUrl="~/pending_app_wo_list.aspx"></asp:MenuItem>
+                </asp:MenuItem>
+                <asp:MenuItem Text="REPORTS">
+                    <asp:MenuItem Text="Search Item" NavigateUrl="~/search_item_master.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Search Category" NavigateUrl="~/search_category_master.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Dept-wise Category" NavigateUrl="~/deptwise_category_master.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Indent Items" NavigateUrl="~/indent_items_details.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Indent Docs" NavigateUrl="~/indent_uploaded_documents.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Enquiry Docs" NavigateUrl="~/enquiry_uploaded_documents.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Indent-Enquiry Items" NavigateUrl="~/indent_enquiry_items_allocated.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Enquiry Items" NavigateUrl="~/enquiry_item_details.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Enquiry Parties" NavigateUrl="~/enquiry_party_details.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Price Breakup" NavigateUrl="~/enquiry_party_price_breakup.aspx"></asp:MenuItem>
+                </asp:MenuItem>
+                <asp:MenuItem Text="LOGOUT"></asp:MenuItem>
+            </Items>
+        </asp:Menu>
+    </div>
+
+    <asp:ContentPlaceHolder ID="cph_header" runat="server"></asp:ContentPlaceHolder>
+
+    <div class="iwps-content">
+        <asp:ContentPlaceHolder ID="cph_maindiv" runat="server"></asp:ContentPlaceHolder>
+    </div>
+
+    <div class="iwps-footer">&copy; BHEL IWPS System | Bharat Heavy Electricals Limited</div>
+
+    <!-- jQuery 3.6 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!-- Bootstrap 4.6 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.2/js/bootstrap.bundle.min.js"></script>
+    <!-- toastr 2.1.4 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+
+</body>
+</html>
