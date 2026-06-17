@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IWPS</RootNamespace>
+    <AssemblyName>IWPS</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Oracle.ManagedDataAccess">
+      <HintPath>packages\Oracle.ManagedDataAccess.21.13.0\lib\net462\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Code\DBHelper.cs" />
+    <Compile Include="App_Code\SessionHelper.cs" />
+    <Compile Include="App_wo.aspx.cs">
+      <DependentUpon>App_wo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Draft_wo_list.aspx.cs">
+      <DependentUpon>Draft_wo_list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Indent_list_enq_dept_approval.aspx.cs">
+      <DependentUpon>Indent_list_enq_dept_approval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Nor_home.aspx.cs">
+      <DependentUpon>Nor_home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="app_home.aspx.cs">
+      <DependentUpon>app_home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="app_wo_amend_req.aspx.cs">
+      <DependentUpon>app_wo_amend_req.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="caa_list_wo_approve.aspx.cs">
+      <DependentUpon>caa_list_wo_approve.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="category_mapping_contractor.aspx.cs">
+      <DependentUpon>category_mapping_contractor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="category_master.aspx.cs">
+      <DependentUpon>category_master.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="category_wise_initiate_enquiry.aspx.cs">
+      <DependentUpon>category_wise_initiate_enquiry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="create_wo.aspx.cs">
+      <DependentUpon>create_wo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="deptwise_category_master.aspx.cs">
+      <DependentUpon>deptwise_category_master.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="display_wo_details.aspx.cs">
+      <DependentUpon>display_wo_details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="draft_enquiry_list.aspx.cs">
+      <DependentUpon>draft_enquiry_list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="draft_indent_list.aspx.cs">
+      <DependentUpon>draft_indent_list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="enquiry_item_details.aspx.cs">
+      <DependentUpon>enquiry_item_details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="enquiry_list_approver.aspx.cs">
+      <DependentUpon>enquiry_list_approver.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="enquiry_party_clcid_update.aspx.cs">
+      <DependentUpon>enquiry_party_clcid_update.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="enquiry_party_details.aspx.cs">
+      <DependentUpon>enquiry_party_details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="enquiry_party_price_breakup.aspx.cs">
+      <DependentUpon>enquiry_party_price_breakup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="enquiry_price_open.aspx.cs">
+      <DependentUpon>enquiry_price_open.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="enquiry_print.aspx.cs">
+      <DependentUpon>enquiry_print.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="enquiry_tech_open.aspx.cs">
+      <DependentUpon>enquiry_tech_open.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="enquiry_uploaded_documents.aspx.cs">
+      <DependentUpon>enquiry_uploaded_documents.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="hod_category_master_approval.aspx.cs">
+      <DependentUpon>hod_category_master_approval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="hod_item_master_approval.aspx.cs">
+      <DependentUpon>hod_item_master_approval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="inactive_category_request.aspx.cs">
+      <DependentUpon>inactive_category_request.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="inactive_item_request.aspx.cs">
+      <DependentUpon>inactive_item_request.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="indent_enquiry_items_allocated.aspx.cs">
+      <DependentUpon>indent_enquiry_items_allocated.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="indent_items_details.aspx.cs">
+      <DependentUpon>indent_items_details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="indent_list_approver.aspx.cs">
+      <DependentUpon>indent_list_approver.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="indent_uploaded_documents.aspx.cs">
+      <DependentUpon>indent_uploaded_documents.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="indent_wise_initiate_enquiry.aspx.cs">
+      <DependentUpon>indent_wise_initiate_enquiry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="initiate_indent.aspx.cs">
+      <DependentUpon>initiate_indent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="item_master.aspx.cs">
+      <DependentUpon>item_master.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="list_category_master.aspx.cs">
+      <DependentUpon>list_category_master.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="list_indent_print.aspx.cs">
+      <DependentUpon>list_indent_print.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="list_item_master.aspx.cs">
+      <DependentUpon>list_item_master.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="loi_input.aspx.cs">
+      <DependentUpon>loi_input.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="loi_list_approver.aspx.cs">
+      <DependentUpon>loi_list_approver.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="loi_note_master.aspx.cs">
+      <DependentUpon>loi_note_master.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="loi_print.aspx.cs">
+      <DependentUpon>loi_print.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pending_app_wo_list.aspx.cs">
+      <DependentUpon>pending_app_wo_list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="print_enquiry_list.aspx.cs">
+      <DependentUpon>print_enquiry_list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="print_loi_list.aspx.cs">
+      <DependentUpon>print_loi_list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="print_wo_items.aspx.cs">
+      <DependentUpon>print_wo_items.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="print_wo_list.aspx.cs">
+      <DependentUpon>print_wo_list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="search_category_master.aspx.cs">
+      <DependentUpon>search_category_master.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="search_clc_contractor_master.aspx.cs">
+      <DependentUpon>search_clc_contractor_master.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="search_item_master.aspx.cs">
+      <DependentUpon>search_item_master.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="search_iwps_contractor_master.aspx.cs">
+      <DependentUpon>search_iwps_contractor_master.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="wcd_category_master_approval.aspx.cs">
+      <DependentUpon>wcd_category_master_approval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="wo_print.aspx.cs">
+      <DependentUpon>wo_print.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="work_order_amend.aspx.cs">
+      <DependentUpon>work_order_amend.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_wo.aspx" />
+    <Content Include="Draft_wo_list.aspx" />
+    <Content Include="Indent_list_enq_dept_approval.aspx" />
+    <Content Include="Nor_home.aspx" />
+    <Content Include="app_home.aspx" />
+    <Content Include="app_wo_amend_req.aspx" />
+    <Content Include="caa_list_wo_approve.aspx" />
+    <Content Include="category_mapping_contractor.aspx" />
+    <Content Include="category_master.aspx" />
+    <Content Include="category_wise_initiate_enquiry.aspx" />
+    <Content Include="create_wo.aspx" />
+    <Content Include="deptwise_category_master.aspx" />
+    <Content Include="display_wo_details.aspx" />
+    <Content Include="draft_enquiry_list.aspx" />
+    <Content Include="draft_indent_list.aspx" />
+    <Content Include="enquiry_item_details.aspx" />
+    <Content Include="enquiry_list_approver.aspx" />
+    <Content Include="enquiry_party_clcid_update.aspx" />
+    <Content Include="enquiry_party_details.aspx" />
+    <Content Include="enquiry_party_price_breakup.aspx" />
+    <Content Include="enquiry_price_open.aspx" />
+    <Content Include="enquiry_print.aspx" />
+    <Content Include="enquiry_tech_open.aspx" />
+    <Content Include="enquiry_uploaded_documents.aspx" />
+    <Content Include="hod_category_master_approval.aspx" />
+    <Content Include="hod_item_master_approval.aspx" />
+    <Content Include="inactive_category_request.aspx" />
+    <Content Include="inactive_item_request.aspx" />
+    <Content Include="indent_enquiry_items_allocated.aspx" />
+    <Content Include="indent_items_details.aspx" />
+    <Content Include="indent_list_approver.aspx" />
+    <Content Include="indent_uploaded_documents.aspx" />
+    <Content Include="indent_wise_initiate_enquiry.aspx" />
+    <Content Include="initiate_indent.aspx" />
+    <Content Include="item_master.aspx" />
+    <Content Include="list_category_master.aspx" />
+    <Content Include="list_indent_print.aspx" />
+    <Content Include="list_item_master.aspx" />
+    <Content Include="loi_input.aspx" />
+    <Content Include="loi_list_approver.aspx" />
+    <Content Include="loi_note_master.aspx" />
+    <Content Include="loi_print.aspx" />
+    <Content Include="login.aspx" />
+    <Content Include="pending_app_wo_list.aspx" />
+    <Content Include="print_enquiry_list.aspx" />
+    <Content Include="print_loi_list.aspx" />
+    <Content Include="print_wo_items.aspx" />
+    <Content Include="print_wo_list.aspx" />
+    <Content Include="search_category_master.aspx" />
+    <Content Include="search_clc_contractor_master.aspx" />
+    <Content Include="search_item_master.aspx" />
+    <Content Include="search_iwps_contractor_master.aspx" />
+    <Content Include="wcd_category_master_approval.aspx" />
+    <Content Include="wo_print.aspx" />
+    <Content Include="work_order_amend.aspx" />
+    <Content Include="iwps.Master" />
+    <Content Include="Web.config" />
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+</Project>
